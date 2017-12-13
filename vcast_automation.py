@@ -105,7 +105,9 @@ class vast_automation():
 if __name__ == "__main__":
     scripts_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), SCRIPTS_FOLDER_NAME)
     obj = vast_automation()
-    obj.cppcheck()
-    reg_scripts = obj.get_files(scripts_path, '.bat')
-    obj.execute_regression_scripts(reg_scripts)
+    if sys.argv[1] == '1' or sys.argv[1] == '3':
+        obj.cppcheck()
+    if sys.argv[1] == '2' or sys.argv[1] == '3':
+        reg_scripts = obj.get_files(scripts_path, '.bat')
+        obj.execute_regression_scripts(reg_scripts)
     
