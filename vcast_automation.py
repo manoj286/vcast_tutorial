@@ -4,12 +4,14 @@ import sys
 from settings import *
 from subprocess import Popen, PIPE
 from xml.etree.ElementTree import parse
+from twilio.rest import Client
 
 class vast_automation():
 
     def __init__(self):
         '''Initialize test results and log documentation.'''
         self.status_xmls = []
+        self.fails = 0
         self.logger = open('log.txt', 'w')
         self.results_junit = open('test_results.xml', 'w')
         self.results_junit.write("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n")
@@ -39,6 +41,21 @@ class vast_automation():
             self.monitor_status(reg_script, env_name)
         self.save_junit_results()
         self.logger.close()
+        self.make_call()
+        
+        
+    def make_call(self):
+        client = Client(account_sid, auth_token)
+
+        # Make the call
+        
+        url_cloud = "{}/{}?fails={}".format(CLOUD_URL, 'get_status', self.fails)
+        print("url_cloud: ", url_cloud)
+        call = client.api.account.calls\
+                .create(to="+918142804767",  # Any phone number
+                from_= sender, # Must be a valid Twilio number
+                url=url_cloud)
+        print(call.sid)
         
         
     def save_junit_results(self):
@@ -86,6 +103,7 @@ class vast_automation():
             elif ts_status == TEST_FAIL:
                 self.xml_content_failed += '<testcase classname="FAILED" name="{}" status="failed">\n\
                 <error message="" type = "failed"> details about failure </error>\n</testcase>\n'.format(ts_name)
+                self.fails += 1
             ts_name = "{} | ".format(ts_name + ' '*(100-len(ts_name)))
             print(ts_name, ts_status, '|')
             print(SEPERATOR)
