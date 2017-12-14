@@ -8,7 +8,7 @@ from xml.etree.ElementTree import parse
 class vast_automation():
 
     def __init__(self):
-        
+        '''Initialize test results and log documentation.'''
         self.status_xmls = []
         self.logger = open('log.txt', 'w')
         self.results_junit = open('test_results.xml', 'w')
