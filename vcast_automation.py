@@ -4,7 +4,7 @@ import sys
 from settings import *
 from subprocess import Popen, PIPE
 from xml.etree.ElementTree import parse
-from twilio.rest import Client
+
 
 tasks = {"UnitTests":"UT", "StaticCodeAnalysis":"SCA"}
 
@@ -43,7 +43,6 @@ class vast_automation():
             self.monitor_status(reg_script, env_name)
         self.save_junit_results()
         self.logger.close()
-        self.make_call()
         
         
     def save_junit_results(self):
