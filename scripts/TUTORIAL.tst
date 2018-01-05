@@ -22,7 +22,7 @@ TEST.NEW
 TEST.NAME:Get_Table_Record.001
 TEST.VALUE:database.<<GLOBAL>>.Table_Data[0].Is_Occupied:v_false
 TEST.VALUE:database.Get_Table_Record.Table:0
-TEST.EXPECTED:database.Get_Table_Record.return.Is_Occupied:v_false
+TEST.EXPECTED:database.Get_Table_Record.return.Is_Occupied:v_true
 TEST.END
 
 -- Test Case: Get_Table_Record.002
