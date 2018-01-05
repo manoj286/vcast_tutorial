@@ -6,6 +6,8 @@ from subprocess import Popen, PIPE
 from xml.etree.ElementTree import parse
 from twilio.rest import Client
 
+tasks = {"UnitTests":"UT", "StaticCodeAnalysis":"SCA"}
+
 class vast_automation():
 
     def __init__(self):
@@ -42,20 +44,6 @@ class vast_automation():
         self.save_junit_results()
         self.logger.close()
         self.make_call()
-        
-        
-    def make_call(self):
-        client = Client(account_sid, auth_token)
-
-        # Make the call
-        
-        url_cloud = "{}/{}?fails={}".format(CLOUD_URL, 'get_status', self.fails)
-        print("url_cloud: ", url_cloud)
-        call = client.api.account.calls\
-                .create(to="+918142804767",  # Any phone number
-                from_= sender, # Must be a valid Twilio number
-                url=url_cloud)
-        print(call.sid)
         
         
     def save_junit_results(self):
@@ -123,9 +111,10 @@ class vast_automation():
 if __name__ == "__main__":
     scripts_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), SCRIPTS_FOLDER_NAME)
     obj = vast_automation()
-    if sys.argv[1] == '1' or sys.argv[1] == '3':
+    given_tasks = sys.argv[1].strip().split(';')
+    if tasks["StaticCodeAnalysis"] in given_tasks:
         obj.cppcheck()
-    if sys.argv[1] == '2' or sys.argv[1] == '3':
+    if tasks["UnitTests"] in given_tasks:
         reg_scripts = obj.get_files(scripts_path, '.bat')
         obj.execute_regression_scripts(reg_scripts)
     
