@@ -260,7 +260,7 @@ TEST.VALUE:manager.Place_Order.Order.Entree:STEAK
 TEST.VALUE:manager.Place_Order.Order.Dessert:CAKE
 TEST.VALUE:manager.Place_Order.Order.Beverage:MIXED_DRINK
 TEST.VALUE:manager.Place_Order.return:1
-TEST.EXPECTED:manager.Place_Order.return:0
+TEST.EXPECTED:manager.Place_Order.return:1
 TEST.END
 
 -- Test Case: Place_Order.002
