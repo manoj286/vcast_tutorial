@@ -110,10 +110,10 @@ class vast_automation():
 if __name__ == "__main__":
     scripts_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), SCRIPTS_FOLDER_NAME)
     obj = vast_automation()
-    given_tasks = sys.argv[1].strip().split(';')
-    if tasks["StaticCodeAnalysis"] in given_tasks:
-        obj.cppcheck()
-    if tasks["UnitTests"] in given_tasks:
-        reg_scripts = obj.get_files(scripts_path, '.bat')
-        obj.execute_regression_scripts(reg_scripts)
+    #given_tasks = sys.argv[1].strip().split(';')
+    #if tasks["StaticCodeAnalysis"] in given_tasks:
+    obj.cppcheck()
+    #if tasks["UnitTests"] in given_tasks:
+    reg_scripts = obj.get_files(scripts_path, '.bat')
+    obj.execute_regression_scripts(reg_scripts)
     
